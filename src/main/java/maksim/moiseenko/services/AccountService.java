@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -40,6 +41,10 @@ public class AccountService {
         if(accountRepository.findAccountByLoginAndPassword(login,password)!=null)
             return "redirect:/main";
         return "redirect:/sign_in";
+    }
+    public Optional<Account> getAccount(Long id){
+        if(!accountRepository.existsById(id)) return null;
+        return accountRepository.findById(id);
     }
 
 }

@@ -12,16 +12,25 @@
 <table class="table">
 
     <tr class="row mb-3" bgcolor="#a9a9a9">
-        <th style="text-align: center" class="col-sm-2 themed-grid-col">Add</th>
+        <th style="text-align: center" class="col-sm-2 themed-grid-col"></th>
         <th style="text-align: center" class="col-sm-8 themed-grid-col ">Name</th>
     </tr>
-    <form method="post" th:action="'/coach/'+${id}+'/disciplines'">
-        <tr class="row mb-3" th:each="discipline: ${disciplines}">
-            <td style="text-align: center" class="col-sm-2 themed-grid-col"><input type="checkbox" th:value="${discipline.id}" ></td>
+        <tr class="row mb-3" th:each="discipline: ${notAddedDisciplines}">
+            <td style="text-align: center" class="col-sm-2 themed-grid-col">
+                <div class="btn-group">
+                    <a th:href="'/coach/'+${id}+'/discipline/'+${discipline.id}+'/add'"  class="btn btn-sm btn-outline-success">Add</a>
+                </div>
+            </td>
             <td style="text-align: center" class="col-sm-8 themed-grid-col" scope="row" th:text="${discipline.name}"></td>
         </tr>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Готово</button>
-    </form>
+        <tr class="row mb-3" th:each="discipline: ${addedDisciplines}">
+            <td style="text-align: center" class="col-sm-2 themed-grid-col">
+                <div class="btn-group">
+                    <a th:href="'/coach/'+${id}+'/discipline/'+${discipline.id}+'/delete'"  class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </td>
+            <td style="text-align: center" class="col-sm-8 themed-grid-col" scope="row" th:text="${discipline.name}"></td>
+        </tr>
 </table>
 <footer th:insert="blocks/footer :: footer"></footer>
 <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

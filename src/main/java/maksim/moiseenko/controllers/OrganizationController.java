@@ -29,6 +29,20 @@ public class OrganizationController {
         organizationService.deleteOrganization(id);
         return "redirect:/organizations";
     }
+    @GetMapping("/organization/{id}/coachs")
+    public String coachAddOrganizations(@PathVariable Long id,Model model){
+        return organizationService.organizationAddCoachs(id,model);
+    }
+    @GetMapping("/organization/{organizationId}/coach/{coachId}/add")
+    public String addCoach(@PathVariable Long organizationId,@PathVariable Long coachId){
+        organizationService.addCoach(organizationId,coachId);
+        return "redirect:/organization/"+organizationId+"/coachs";
+    }
+    @GetMapping("/organization/{organizationId}/coach/{coachId}/delete")
+    public String deleteCoach(@PathVariable Long organizationId,@PathVariable Long coachId){
+        organizationService.deleteCoach(coachId,organizationId);
+        return "redirect:/organization/"+organizationId+"/coachs";
+    }
     @PostMapping("/register/organization")
     public String sign_inPageFromOrganization(@RequestParam String login,
                                               @RequestParam String password,
@@ -52,7 +66,7 @@ public class OrganizationController {
     }
     @GetMapping("/organizations")
     public String organizations(Model model){
-       organizationService.findAllOrganizations(model);
+         model.addAttribute("organizations",organizationService.findAllOrganizations());
         return "organizations";
     }
 }

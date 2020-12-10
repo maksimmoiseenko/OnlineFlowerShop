@@ -11,15 +11,13 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
-            <div th:each="org: ${organization}" class="col-md-4">
+            <div th:each="coach: ${coach}" class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                     <svg class="bd-placeholder-img card-img-top" width="100%" height="125" xmlns="http://www.w3.org/2000/svg"
-                         preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#007bff"></rect>
-                        <text x="50%" y="50%" fill="#eceeef" dy=".3em" th:text="${org.organization.name}"></text></svg>
+                         preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" th:text="${coach.coach.getLastname()}"></text></svg>
                     <div class="card-body">
-                        <p class="card-text" th:text="${org.organization.location}"></p>
+                        <p class="card-text" th:text="${coach.coach.firstname}"></p>
+
                     </div>
                 </div>
             </div>
@@ -30,26 +28,26 @@
 
     <tr class="row mb-3" bgcolor="#a9a9a9">
         <th style="text-align: center" class="col-sm-2 themed-grid-col"></th>
-        <th style="text-align: center" class="col-sm-5 themed-grid-col">firstname</th>
-        <th style="text-align: center" class="col-sm-5 themed-grid-col ">lastname</th>
+        <th style="text-align: center" class="col-sm-5 themed-grid-col">Name</th>
+        <th style="text-align: center" class="col-sm-5 themed-grid-col ">Location</th>
     </tr>
-    <tr class="row mb-3" th:each="coach: ${notAddedCoachs}">
+    <tr class="row mb-3" th:each="organization: ${notAddedOrganizations}">
         <td style="text-align: center" class="col-sm-2 themed-grid-col">
             <div class="btn-group">
-                <a th:href="'/organization/'+${organization.id}+'/coach/'+${coach.id}+'/add'"  class="btn btn-sm btn-outline-success">Add</a>
+                <a th:href="'/coach/'+${id}+'/organization/'+${organization.id}+'/add'"  class="btn btn-sm btn-outline-success">Add</a>
             </div>
         </td>
-        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${coach.coach.firstname}"></td>
-        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${coach.coach.lastname}"></td>
+        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${organization.organization.name}"></td>
+        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${organization.organization.location}"></td>
     </tr>
-    <tr class="row mb-3" th:each="coach: ${addedCoachs}">
+    <tr class="row mb-3" th:each="organization: ${addedOrganizations}">
         <td style="text-align: center" class="col-sm-2 themed-grid-col">
             <div class="btn-group">
-                <a th:href="'/organization/'+${organization.id}+'/coach/'+${coach.id}+'/delete'"  class="btn btn-sm btn-outline-danger">Delete</a>
+                <a th:href="'/coach/'+${id}+'/organization/'+${organization.id}+'/delete'"  class="btn btn-sm btn-outline-danger">Delete</a>
             </div>
         </td>
-        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${coach.coach.firstname}"></td>
-        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${coach.coach.lastname}"></td>
+        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${organization.organization.name}"></td>
+        <td style="text-align: center" class="col-sm-5 themed-grid-col" scope="row" th:text="${organization.organization.location}"></td>
     </tr>
 </table>
 <footer th:insert="blocks/footer :: footer"></footer>

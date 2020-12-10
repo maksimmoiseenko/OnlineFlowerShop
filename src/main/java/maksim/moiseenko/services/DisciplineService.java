@@ -1,5 +1,6 @@
 package maksim.moiseenko.services;
 
+import maksim.moiseenko.models.Account;
 import maksim.moiseenko.models.Discipline;
 import maksim.moiseenko.repositories.DisciplineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class DisciplineService {
         if(disciplineRepository.existsById(id))
             disciplineRepository.deleteById(id);
     }
+    public Optional<Discipline> getDiscipline(Long id){
+        if(!disciplineRepository.existsById(id)) return null;
+        return disciplineRepository.findById(id);
+
+    }
     public String editDisciplineForm(Long id, Model model){
         if(!disciplineRepository.existsById(id)) return "redirect:/disciplines";
         Optional<Discipline> discipline=disciplineRepository.findById(id);
@@ -32,6 +38,7 @@ public class DisciplineService {
         model.addAttribute("discipline",discipline1);
         return "disciplineEdit";
     }
+
     public void editDiscipline(Long id,String name){
         Discipline discipline=new Discipline();
         discipline.setId(id);

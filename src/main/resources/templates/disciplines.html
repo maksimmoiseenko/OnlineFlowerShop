@@ -23,15 +23,15 @@
 <table class="table">
 
     <tr class="row mb-3" bgcolor="#a9a9a9">
-        <th class="col-sm-8 themed-grid-col ">Name</th>
-        <th class="col-sm-2 themed-grid-col">Delete</th>
-        <th class="col-sm-2 themed-grid-col">Edit</th>
+        <th style="text-align: center" class="col-sm-8 themed-grid-col ">Name</th>
+        <th style="text-align: center" class="col-sm-2 themed-grid-col">Delete</th>
+        <th style="text-align: center" class="col-sm-2 themed-grid-col">Edit</th>
     </tr>
 
     <tr class="row mb-3" th:each="discipline: ${disciplines}">
-        <td class="col-sm-8 themed-grid-col" scope="row" th:text="${discipline.name}"></td>
-        <td class="col-sm-2 themed-grid-col" ><a th:href="'discipline/'+${discipline.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
-        <td class="col-sm-2 themed-grid-col"><a th:href="'discipline/'+${discipline.id}+'/edit'"  class="btn btn-sm btn-outline-secondary">Edit</a></td>
+        <td style="text-align: center" class="col-sm-8 themed-grid-col" scope="row" th:text="${discipline.name}"></td>
+        <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:href="'discipline/'+${discipline.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
+        <td style="text-align: center" class="col-sm-2 themed-grid-col"><a th:href="'discipline/'+${discipline.id}+'/edit'"  class="btn btn-sm btn-outline-secondary">Edit</a></td>
     </tr>
 
 

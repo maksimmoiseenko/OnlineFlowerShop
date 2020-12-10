@@ -38,6 +38,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a th:href="'/organization/'+${org.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a>
+                                    <a th:href="'/organization/'+${org.id}+'/coachs'" class="btn btn-sm btn-outline-secondary">Coachs</a>
                                     <a th:href="'/organization/'+${org.id}+'/edit'" class="btn btn-sm btn-outline-secondary">Edit</a>
                                 </div>
                                 <small class="text-muted">9 mins</small>
@@ -58,6 +59,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a th:href="'/coach/'+${coach.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a>
+                                    <a th:href="'/coach/'+${coach.id}+'/organizations'" class="btn btn-sm btn-outline-secondary">Organizations</a>
                                     <a th:href="'/coach/'+${coach.id}+'/disciplines'" class="btn btn-sm btn-outline-secondary">Disciplines</a>
                                     <a th:href="'/coach/'+${coach.id}+'/edit'" class="btn btn-sm btn-outline-secondary">Edit</a>
                                 </div>
