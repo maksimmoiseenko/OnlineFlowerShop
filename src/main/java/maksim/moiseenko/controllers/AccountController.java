@@ -17,7 +17,7 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/main")
+    @GetMapping("/")
     public String main(Model model){
         accountService.main(model);
         return "Main";

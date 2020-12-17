@@ -14,19 +14,16 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1>Album example</h1>
-            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-            <p>
-                <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-            </p>
+            <h1>Fitness</h1>
+            <p class="lead text-muted">Fitness - это сервис для подбора персонального тренера по фитнесу и спортивным направлениям.</p>
+
         </div>
     </section>
 
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
-                <div th:each="org: ${organizations}" class="col-md-4">
+                <div th:each="org: ${organizations}" class="col-md-6">
                     <div class="card mb-4 shadow-sm">
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
                              preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
@@ -47,7 +44,7 @@
                     </div>
                 </div>
 
-                <div th:each="coach: ${coachs}" class="col-md-4">
+                <div th:each="coach: ${coachs}" class="col-md-6">
                     <div class="card mb-4 shadow-sm">
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
                              preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
@@ -62,6 +59,7 @@
                                     <a th:href="'/coach/'+${coach.id}+'/organizations'" class="btn btn-sm btn-outline-secondary">Organizations</a>
                                     <a th:href="'/coach/'+${coach.id}+'/disciplines'" class="btn btn-sm btn-outline-secondary">Disciplines</a>
                                     <a th:href="'/coach/'+${coach.id}+'/edit'" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a th:href="'/lessons/'+${coach.id}" class="btn btn-sm btn-outline-secondary">Schedule</a>
                                 </div>
                                 <small class="text-muted">9 mins</small>
                             </div>

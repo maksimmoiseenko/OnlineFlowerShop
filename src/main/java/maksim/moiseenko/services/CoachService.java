@@ -3,6 +3,7 @@ package maksim.moiseenko.services;
 import maksim.moiseenko.models.*;
 import maksim.moiseenko.repositories.AccountRepository;
 import maksim.moiseenko.repositories.CoachDisciplineRepository;
+import maksim.moiseenko.repositories.CoachRepository;
 import maksim.moiseenko.repositories.OrganizationCoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class CoachService {
     private OrganizationCoachRepository organizationCoachRepository;
     @Autowired
     private CoachDisciplineRepository coachDisciplineRepository;
+    @Autowired
+    private CoachRepository coachRepository;
+    public boolean existsById(Long id){
+        return coachRepository.existsById(id);
+    }
     public void save(String login,String password,String firstname,String lastname){
         Account account= new Account(login,password, Role.USER, State.ACTIVE,null,null,null);
         Coach coach=new Coach(firstname,lastname);
@@ -61,7 +67,6 @@ public class CoachService {
             }
         }
         model.addAttribute("id",id);
-
         model.addAttribute("notAddedDisciplines",notAddedDisciplines);
         model.addAttribute("addedDisciplines",addedDisciplines);
         return "coachAddDiscipline";
@@ -103,10 +108,7 @@ public class CoachService {
         List<Account> addedOrganizations=new ArrayList<>();
         List<Account> notAddedOrganizations=organizationService.findAllOrganizations();
         Account coach=accountRepository.findById(id).get();
-        List<Organization_Coach> organization_coaches=accountRepository.findById(id)
-                .get()
-                .getCoach()
-                .getOrganization_coach();
+        List<Organization_Coach> organization_coaches=organizationCoachRepository.findAllByCoach_Id(id);
         for(Organization_Coach organization_coach:organization_coaches ){
             addedOrganizations.add(organization_coach.getOrganization());
             if(notAddedOrganizations.contains(organization_coach.getOrganization())){
