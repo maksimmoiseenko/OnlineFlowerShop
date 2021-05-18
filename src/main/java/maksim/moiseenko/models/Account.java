@@ -3,13 +3,15 @@ package maksim.moiseenko.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-
+@Builder
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,24 +22,15 @@ public class Account {
     private Role role;
     @Enumerated(value = EnumType.STRING)
     private State status;
-    @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true)
-    @JoinColumn
-    private Organization organization;
-    @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true)
-    @JoinColumn(name="coach_id")
-    private Coach coach;
-    @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true)
-    @JoinColumn(name="user_id")
-    private SimpleUser user;
 
 
-    public Account(String login, String password, Role role, State state, Organization o, Coach o1, SimpleUser o2) {
+
+    public Account(String login, String password, Role role, State state) {
         this.login=login;
         this.password=password;
         this.role=role;
         this.status=state;
-        this.organization=o;
-        this.coach=o1;
-        this.user=o2;
     }
+    @OneToMany(mappedBy = "account",orphanRemoval = true,cascade = {CascadeType.REMOVE})
+    private List<Order> orders=new ArrayList<>();
 }

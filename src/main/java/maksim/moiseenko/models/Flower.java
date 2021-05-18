@@ -9,25 +9,25 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 
-public class Discipline {
+public class Flower {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String name;
-    @OneToMany(mappedBy = "discipline",orphanRemoval = true,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
-    private List<Coach_Discipline> coach_disciplines=new ArrayList<>();
+    @OneToMany(mappedBy = "flower",orphanRemoval = true,cascade = {CascadeType.REMOVE,})
+    private List<Order> orders=new ArrayList<>();
 
-    public Discipline(String name) {
+    public Flower(String name) {
         this.name=name;
     }
-    public Discipline(Long id,String name) {
+    public Flower(Long id, String name) {
         this.id=id;
         this.name=name;
     }

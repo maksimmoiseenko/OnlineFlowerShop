@@ -1,11 +1,12 @@
 package maksim.moiseenko.services;
 
 import maksim.moiseenko.models.Account;
-import maksim.moiseenko.models.Organization;
+import maksim.moiseenko.models.Flower;
 import maksim.moiseenko.models.Role;
 import maksim.moiseenko.models.State;
 import maksim.moiseenko.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -17,34 +18,38 @@ import java.util.Optional;
 public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public void main(Model model){
-        List<Account> accountList= accountRepository.findAll();
-        List<Account> organizations=new ArrayList<>();
-        List<Account> coachs=new ArrayList<>();
-        int count1=0,count2=0;
-        for(Account account:accountList) {
-            if(count1==3 && count2==3) break;
-            if(account.getCoach()!=null && count2<=3){
-                coachs.add(account);
-                count2++;
-            }
-            if (account.getOrganization() != null &&count1<=3) {
-                organizations.add(account);
-                count1++;
-            }
-        }
-        model.addAttribute("organizations",organizations);
-        model.addAttribute("coachs",coachs);
-    }
-    public String sign_in(String login,String password){
-        if(accountRepository.findAccountByLoginAndPassword(login,password)!=null)
-            return "redirect:/main";
-        return "redirect:/sign_in";
-    }
-    public Optional<Account> getAccount(Long id){
+    public List<Account> getAccount(Long id){
         if(!accountRepository.existsById(id)) return null;
-        return accountRepository.findById(id);
+        if(id == 1) return accountRepository.findAll();
+        List<Account> list = new ArrayList<>();
+        list.add(accountRepository.findById(id).get());
+        return list;
+    }
+    public Account save(String login, String password){
+        String hashPassword = passwordEncoder.encode(password);
+        Account account = new Account(login,hashPassword, Role.USER, State.ACTIVE);
+        return accountRepository.save(account);
+    }
+    public void deleteById(long id){
+        accountRepository.deleteById(id);
+    }
+    public String editUserForm(Long id, Model model){
+        if(!accountRepository.existsById(id)) return "redirect:/users";
+        Optional<Account> account=accountRepository.findById(id);
+        ArrayList<Account> account1=new ArrayList<>();
+        account.ifPresent(account1 :: add);
+        model.addAttribute("account",account1);
+        return "accountEdit";
     }
 
+    public void editAccount(Long id,String login,String password){
+        if(!accountRepository.existsById(id)) return;
+        Account account=accountRepository.findById(id).get();
+        account.setLogin(login);
+        account.setPassword(passwordEncoder.encode(password));
+        accountRepository.save(account);
+    }
 }
