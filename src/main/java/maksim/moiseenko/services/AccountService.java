@@ -28,9 +28,9 @@ public class AccountService {
         list.add(accountRepository.findById(id).get());
         return list;
     }
-    public Account save(String login, String password){
+    public Account save(String login, String password, String address, String phone){
         String hashPassword = passwordEncoder.encode(password);
-        Account account = new Account(login,hashPassword, Role.USER, State.ACTIVE);
+        Account account = new Account(login,hashPassword, address, phone, Role.USER, State.ACTIVE);
         return accountRepository.save(account);
     }
     public void deleteById(long id){
@@ -45,10 +45,12 @@ public class AccountService {
         return "accountEdit";
     }
 
-    public void editAccount(Long id,String login,String password){
+    public void editAccount(Long id,String login,String password,String address, String phone){
         if(!accountRepository.existsById(id)) return;
         Account account=accountRepository.findById(id).get();
         account.setLogin(login);
+        account.setAddress(address);
+        account.setPhone(phone);
         account.setPassword(passwordEncoder.encode(password));
         accountRepository.save(account);
     }

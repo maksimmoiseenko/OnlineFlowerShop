@@ -1,10 +1,9 @@
 package maksim.moiseenko.repositories;
 
-import maksim.moiseenko.models.Coach;
+import maksim.moiseenko.models.Flower;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CoachRepository extends JpaRepository<Coach,Long> {
+public interface FlowerRepository extends JpaRepository<Flower,Long> {
 }

@@ -12,18 +12,22 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-
-public class SimpleUser {
+@Table(name="myOrders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstname;
-    private String lastname;
-    @OneToOne(mappedBy = "user")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Account account;
 
-    public SimpleUser(String firstname,String lastname){
-        this.firstname=firstname;
-        this.lastname=lastname;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Flower flower;
+
+    public Order(Account account, Flower flower){
+        this.account = account;
+        this.flower = flower;
     }
 }

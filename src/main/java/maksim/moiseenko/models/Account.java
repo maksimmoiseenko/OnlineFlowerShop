@@ -18,6 +18,8 @@ public class Account {
     private Long id;
     private String login;
     private String password;
+    private String address;
+    private String phone;
     @Enumerated(value = EnumType.STRING)
     private Role role;
     @Enumerated(value = EnumType.STRING)
@@ -25,11 +27,13 @@ public class Account {
 
 
 
-    public Account(String login, String password, Role role, State state) {
-        this.login=login;
-        this.password=password;
-        this.role=role;
-        this.status=state;
+    public Account(String login, String password, String address, String phone, Role role, State state) {
+        this.login = login;
+        this.password = password;
+        this.address = address;
+        this.phone = phone;
+        this.role = role;
+        this.status = state;
     }
     @OneToMany(mappedBy = "account",orphanRemoval = true,cascade = {CascadeType.REMOVE})
     private List<Order> orders=new ArrayList<>();

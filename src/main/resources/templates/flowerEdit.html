@@ -13,14 +13,18 @@
 <body>
 
 <header th:insert="blocks/header :: header"></header>
-<div th:each="el: ${discipline}" style="background-color: #f8f9fa;height: 100vh;display: flex;
+<div th:each="el: ${flower}" style="background-color: #f8f9fa;height: 100vh;display: flex;
   align-items: center;
   justify-content: center">
-    <form class="form-signin" method="post" th:action="'/discipline/'+${el.id}+'/edit'"
+    <form class="form-signin" method="post" th:action="'/flower/'+${el.id}+'/edit'"
           style="margin:0; width:300px">
-        <h1 class="h3 mb-3 font-weight-normal">Редактирование дисциплины</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Редактирование цветов</h1>
+        Name
         <label for="name" class="sr-only">Name</label>
         <input id="name" th:value="${el.name}" name="name"  class="form-control" placeholder="Name" required="" autofocus="">
+        Cost
+        <label for="cost" class="sr-only">Cost</label>
+        <input id="cost" th:value="${el.cost}" name="cost" type="number" min="0" class="form-control" placeholder="Cost" required="" autofocus="">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Редактировать</button>
         <p class="mt-5 mb-3 text-muted">© 2020</p>

@@ -21,7 +21,7 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private FlowerService flowerService;
-
+    //отрисовка главной страницы с цветами
     @GetMapping("/")
     public String main(Authentication authentication, Model model){
         if(authentication==null){
@@ -33,7 +33,7 @@ public class AccountController {
         model.addAttribute("flowers",flowerService.findAllFlowers());
         return "Main";
     }
-
+    //отрисовка страницы логина
     @GetMapping("/signIn")
     public String sign_inPage(Authentication authentication){
         if(authentication!=null){
@@ -41,6 +41,7 @@ public class AccountController {
         }
         return "sign_in";
     }
+    //отрисовка страницы с пользователями
     @GetMapping("/users")
     public String orders(Authentication authentication, Model model){
         if(authentication==null){
@@ -52,6 +53,7 @@ public class AccountController {
         model.addAttribute("users", accountService.getAccount(accountDto.getId()));
         return "users";
     }
+    //отрисовка страницы регистрации
     @GetMapping("/register")
     public String registerPage(Authentication authentication){
         if(authentication!=null){
@@ -59,7 +61,16 @@ public class AccountController {
         }
         return "register";
     }
-
+    //регистрация
+    @PostMapping("/register")
+    public String sign_upPageFromUser(@RequestParam String login,
+                                      @RequestParam String password,
+                                      @RequestParam String address,
+                                      @RequestParam String phone){
+        accountService.save(login,password, address, phone);
+        return "redirect:/signIn";
+    }
+    //удаление пользователя
     @GetMapping("/user/{id}/delete")
     public String deleteUser(@PathVariable Long id,Authentication authentication){
         if(authentication==null){
@@ -72,22 +83,21 @@ public class AccountController {
         }
         return "redirect:/users";
     }
+    //отрисовка страницы редактирования пользователя
     @GetMapping("/user/{id}/edit")
     public String editFormUser(@PathVariable Long id,Model model){
         return accountService.editUserForm(id,model);
     }
+    //редактирование пользователя
     @PostMapping("/user/{id}/edit")
     public String editUser(@PathVariable Long id,
                            @RequestParam String login,
-                           @RequestParam String password) {
-        accountService.editAccount(id, login, password);
+                           @RequestParam String password,
+                           @RequestParam String address,
+                           @RequestParam String phone) {
+        accountService.editAccount(id, login, password, address, phone);
         return "redirect:/users";
     }
-    @PostMapping("/register")
-    public String sign_upPageFromUser(@RequestParam String login,
-                                      @RequestParam String password){
-        accountService.save(login,password);
-        return "redirect:/signIn";
-    }
+
 
 }

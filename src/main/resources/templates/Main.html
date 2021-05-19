@@ -26,23 +26,29 @@
                 <div class="container" style="margin:10px; width:300px">
                     <form class="form-signin"  action="/flower/add" method="post">
                         <h1 class="h3 mb-3 font-weight-normal">Добавление</h1>
+                        Name
                         <label for="name" class="sr-only">Name</label>
-                        <input style="margin-bottom: 15px;" id="name" name="name" class="form-control">
+                        <input style="margin-bottom: 15px;" id="name" name="name" class="form-control" placeholder="Name">
+                        Cost
+                        <label for="cost" class="sr-only">Cost</label>
+                        <input style="margin-bottom: 15px;" id="cost" name="cost"  type="number" min="0" class="form-control" placeholder="Cost">
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Добавить</button>
                     </form>
                 </div>
             </div>
-            <table class="table">
+            <table th:if="${flowers.size()!=0}" class="table table-striped">
 
                 <tr class="row mb-3" bgcolor="#a9a9a9">
-                    <th style="text-align: center" class="col-sm-6 themed-grid-col ">Name</th>
+                    <th style="text-align: center" class="col-sm-3 themed-grid-col ">Name</th>
+                    <th style="text-align: center" class="col-sm-3 themed-grid-col ">Cost</th>
                     <th style="text-align: center" class="col-sm-2 themed-grid-col"></th>
                     <th style="text-align: center" class="col-sm-2 themed-grid-col"></th>
                     <th style="text-align: center" class="col-sm-2 themed-grid-col"></th>
                 </tr>
 
                 <tr class="row mb-3" th:each="flower: ${flowers}">
-                    <td style="text-align: center" class="col-sm-6 themed-grid-col" scope="row" th:text="${flower.name}"></td>
+                    <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${flower.name}"></td>
+                    <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${flower.cost}"></td>
                     <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:href="'order/add/'+${flower.id}"  class="btn btn-sm btn-outline-secondary">Add in order</a></td>
                     <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:if="${account.id==1}" th:href="'flower/'+${flower.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
                     <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:if="${account.id==1}" th:href="'flower/'+${flower.id}+'/edit'"  class="btn btn-sm btn-outline-secondary">Edit</a></td>
