@@ -65,9 +65,8 @@ public class AccountController {
     @PostMapping("/register")
     public String sign_upPageFromUser(@RequestParam String login,
                                       @RequestParam String password,
-                                      @RequestParam String address,
-                                      @RequestParam String phone){
-        accountService.save(login,password, address, phone);
+                                      @RequestParam String role){
+        accountService.save(login,password, role);
         return "redirect:/signIn";
     }
     //удаление пользователя
@@ -92,10 +91,8 @@ public class AccountController {
     @PostMapping("/user/{id}/edit")
     public String editUser(@PathVariable Long id,
                            @RequestParam String login,
-                           @RequestParam String password,
-                           @RequestParam String address,
-                           @RequestParam String phone) {
-        accountService.editAccount(id, login, password, address, phone);
+                           @RequestParam String password) {
+        accountService.editAccount(id, login, password);
         return "redirect:/users";
     }
 

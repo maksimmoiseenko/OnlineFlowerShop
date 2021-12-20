@@ -49,9 +49,9 @@
                 <tr class="row mb-3" th:each="flower: ${flowers}">
                     <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${flower.name}"></td>
                     <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${flower.cost}"></td>
-                    <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:href="'order/add/'+${flower.id}"  class="btn btn-sm btn-outline-secondary">Add in order</a></td>
-                    <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:if="${account.id==1}" th:href="'flower/'+${flower.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
-                    <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:if="${account.id==1}" th:href="'flower/'+${flower.id}+'/edit'"  class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                    <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:if="${!account.getRole().toString().equals('COURIER')}" th:href="'/order/add/'+ ${flower.id}"  class="btn btn-sm btn-outline-secondary">Add in order</a></td>
+                    <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:if="${account.getRole().toString().equals('ADMIN')}" th:href="'flower/'+${flower.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
+                    <td style="text-align: center" class="col-sm-2 themed-grid-col" ><a th:if="${account.getRole().toString().equals('ADMIN')}" th:href="'flower/'+${flower.id}+'/edit'"  class="btn btn-sm btn-outline-secondary">Edit</a></td>
                 </tr>
 
 

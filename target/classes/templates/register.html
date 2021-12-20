@@ -25,11 +25,19 @@
             <label for="inputPassword3" class="sr-only">Password</label>
             <input type="password" name="password" id="inputPassword3" class="form-control" placeholder="Password" required="">
 
-            <label for="address" class="sr-only">Address</label>
-            <input name="address" id="address" class="form-control" placeholder="Address" required="">
 
-            <label for="phone" class="sr-only">Phone</label>
-            <input name="phone" id="phone" maxlength="13" class="form-control" placeholder="Phone" required="">
+
+            <h4 class="mb-3">Доставка или самовывоз</h4>
+            <div class="my-3">
+                <div class="form-check">
+                    <input value="user" id="user" name="role" type="radio" class="form-check-input" checked="" required="">
+                    <label class="form-check-label" for="user">Пользователь</label>
+                </div>
+                <div class="form-check">
+                    <input value="courier" id="courier" name="role" type="radio" class="form-check-input" required="">
+                    <label class="form-check-label" for="courier">Курьер</label>
+                </div>
+            </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
             <p class="mt-5 mb-3 text-muted">© 2021</p>
         </form>

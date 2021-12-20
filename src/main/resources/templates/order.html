@@ -14,7 +14,9 @@
       <section class="jumbotron text-center">
         <div th:if="${orders.size()!=0}" class="container">
           <h1 th:if="${account.id==1}">ALL ORDERS(ADMIN)</h1>
-          <h1 th:if="${account.id!=1}">MY ORDERS</h1>
+          <h1 th:if="${account.getRole().toString().equals('USER')}">MY ORDERS</h1>
+          <h1 th:if="${account.getRole().toString().equals('COURIER')}">MY ORDERS and FREE ORDERS</h1>
+
         </div>
         <div th:if="${orders.size()==0}" class="container">
           <h1>NO ORDERS</h1>
@@ -23,21 +25,39 @@
       <table th:if="${orders.size()!=0}" class="table table-striped">
 
         <tr class="row mb-3" bgcolor="#a9a9a9">
-          <th style="text-align: center" class="col-sm-3 themed-grid-col ">Account</th>
-          <th style="text-align: center" class="col-sm-2 themed-grid-col ">Address</th>
-          <th style="text-align: center" class="col-sm-2 themed-grid-col ">Phone</th>
-          <th style="text-align: center" class="col-sm-2 themed-grid-col ">Flower name</th>
-          <th style="text-align: center" class="col-sm-1 themed-grid-col ">Flower cost</th>
+          <th style="text-align: center" class="col-sm-2 themed-grid-col ">Заказчик</th>
+          <th style="text-align: center" class="col-sm-2 themed-grid-col ">Адрес</th>
+          <th style="text-align: center" class="col-sm-1 themed-grid-col ">Наименование</th>
+          <th style="text-align: center" class="col-sm-1 themed-grid-col ">Цена/шт</th>
+          <th style="text-align: center" class="col-sm-1 themed-grid-col ">Количество, шт</th>
+          <th style="text-align: center" class="col-sm-1 themed-grid-col ">Получение</th>
+          <th  style="text-align: center" class="col-sm-1 themed-grid-col ">Курьер</th>
           <th style="text-align: center" class="col-sm-1 themed-grid-col"></th>
+          <th style="text-align: center" class="col-sm-1 themed-grid-col"></th>
+          <th th:if="${isCourier}" style="text-align: center" class="col-sm-1 themed-grid-col"></th>
         </tr>
 
         <tr class="row mb-3" th:each="order: ${orders}">
-          <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${order.account.getLogin()}"></td>
-          <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${order.account.getAddress()}"></td>
-          <td style="text-align: center" class="col-sm-2 themed-grid-col" scope="row" th:text="${order.account.getPhone()}"></td>
-          <td style="text-align: center" class="col-sm-2 themed-grid-col" scope="row" th:text="${order.flower.getName()}"></td>
+          <td style="text-align: center" class="col-sm-2 themed-grid-col" scope="row" th:text="${order.account.getLogin()}"></td>
+          <td style="text-align: center" class="col-sm-2 themed-grid-col" scope="row" th:text="${order.getAddress()}"></td>
+          <td style="text-align: center" class="col-sm-1 themed-grid-col" scope="row" th:text="${order.flower.getName()}"></td>
           <td style="text-align: center" class="col-sm-1 themed-grid-col" scope="row" th:text="${order.flower.getCost()}"></td>
-          <td style="text-align: center" class="col-sm-1 themed-grid-col" ><a th:href="'order/'+${order.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
+          <td style="text-align: center" class="col-sm-1 themed-grid-col" scope="row" th:text="${order.getAmount()}"></td>
+
+          <td style="text-align: center" th:if="${order.getGetting() == 'self-pickup'}" class="col-sm-1 themed-grid-col" scope="row">Самовывоз</td>
+          <td style="text-align: center" th:if="${order.getGetting() == 'delivery'}" class="col-sm-1 themed-grid-col" scope="row">Курьером</td>
+
+          <td style="text-align: center" th:if="${order.getCourier() != null}" class="col-sm-1 themed-grid-col" scope="row" th:text="${order.courier.getLogin()}"></td>
+          <td style="text-align: center" th:if="${order.getCourier() == null}" class="col-sm-1 themed-grid-col" scope="row">Курьер не назначен</td>
+
+          <td style="text-align: center" th:if="${!account.getRole().toString().equals('COURIER')}" class="col-sm-1 themed-grid-col" ><a th:href="'order/'+${order.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
+
+          <td style="text-align: center" class="col-sm-1 themed-grid-col"  th:if="${!order.isPaid() && account.getId() == order.getAccount().getId()}" ><a th:href="'payment/'+${order.id}"  class="btn btn-sm btn-outline-secondary">Оплатить</a></td>
+          <td style="text-align: center" class="col-sm-1 themed-grid-col" th:if="${order.isPaid()}" scope="row">Оплачено</td>
+
+          <td th:if="${isCourier && order.getCourier() != null }" style="text-align: center" class="col-sm-1 themed-grid-col" ><a th:href="'order/'+${order.id}+'/deleteCourier'"  class="btn btn-sm btn-outline-secondary ">Отменить доставку</a></td>
+          <td th:if="${isCourier && order.getCourier() == null }" style="text-align: center" class="col-sm-1 themed-grid-col" ><a th:href="'order/'+${order.id}+'/addCourier'"  class="btn btn-sm btn-outline-secondary">Взять доставку</a></td>
+
         </tr>
 
 

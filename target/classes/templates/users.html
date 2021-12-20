@@ -15,21 +15,19 @@
     <table class="table table-striped">
 
         <tr class="row mb-3" bgcolor="#a9a9a9">
-            <th style="text-align: center" class="col-sm-1 themed-grid-col ">Id</th>
-            <th style="text-align: center" class="col-sm-3 themed-grid-col">login</th>
-            <th style="text-align: center" class="col-sm-3 themed-grid-col">address</th>
-            <th style="text-align: center" class="col-sm-3 themed-grid-col">phone</th>
+            <th style="text-align: center" class="col-sm-2 themed-grid-col ">Id</th>
+            <th style="text-align: center" class="col-sm-4 themed-grid-col">login</th>
+            <th style="text-align: center" class="col-sm-4 themed-grid-col">role</th>
             <th style="text-align: center" class="col-sm-1 themed-grid-col"></th>
             <th style="text-align: center" class="col-sm-1 themed-grid-col"></th>
         </tr>
 
         <tr class="row mb-3" th:each="user: ${users}">
-            <td style="text-align: center" class="col-sm-1 themed-grid-col" scope="row" th:text="${user.id}"></td>
-            <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${user.login}"></td>
-            <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${user.address}"></td>
-            <td style="text-align: center" class="col-sm-3 themed-grid-col" scope="row" th:text="${user.phone}"></td>
-            <td style="text-align: center" class="col-sm-1 themed-grid-col" ><a th:if="${user.id!=1}" th:href="'user/'+${user.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
-            <td style="text-align: center" class="col-sm-1 themed-grid-col" ><a th:if="${user.id!=1}" th:href="'user/'+${user.id}+'/edit'"  class="btn btn-sm btn-outline-secondary">Edit</a></td>
+            <td style="text-align: center" class="col-sm-2 themed-grid-col" scope="row" th:text="${user.id}"></td>
+            <td style="text-align: center" class="col-sm-4 themed-grid-col" scope="row" th:text="${user.login}"></td>
+            <td style="text-align: center" class="col-sm-4 themed-grid-col" scope="row" th:text="${user.role.toString()}"></td>
+            <td style="text-align: center" class="col-sm-1 themed-grid-col" ><a th:if="${account.getRole().toString().equals('ADMIN')}" th:href="'user/'+${user.id}+'/delete'"  class="btn btn-sm btn-outline-secondary">Delete</a></td>
+            <td style="text-align: center" class="col-sm-1 themed-grid-col" ><a th:href="'user/'+${user.id}+'/edit'"  class="btn btn-sm btn-outline-secondary">Edit</a></td>
         </tr>
 
 
